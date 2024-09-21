@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3000;
 const API_WEB_BASE_URL = 'https://api-web.nhle.com';
 const API_STATS_BASE_URL = 'https://api.nhle.com/stats/rest/en';
 
-// Helper function to fetch data from NHL API
 async function fetchData(url) {
   try {
     const response = await axios.get(url);
@@ -24,16 +23,18 @@ async function fetchData(url) {
   }
 }
 
-// Route to get current NHL standings
 app.get('/api/standings', async (req, res) => {
   try {
     const url = `${API_WEB_BASE_URL}/v1/standings/now`;
     const data = await fetchData(url);
     res.json(data);
   } catch (error) {
+    console.error('Error fetching standings data:', error.message);
     res.status(500).send('Error fetching standings data.');
   }
 });
+
+
 
 // Route to get current skater stats leaders
 app.get('/api/skater-leaders', async (req, res) => {
@@ -43,6 +44,8 @@ app.get('/api/skater-leaders', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching skater leaders data.');
+    
+
   }
 });
 
@@ -54,6 +57,8 @@ app.get('/api/goalie-leaders', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching goalie leaders data.');
+    
+
   }
 });
 
@@ -66,6 +71,8 @@ app.get('/api/teams/:teamId/roster', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching team roster data.');
+    
+
   }
 });
 
@@ -77,6 +84,7 @@ app.get('/api/schedule', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching schedule data.');
+    
   }
 });
 
@@ -89,6 +97,8 @@ app.get('/api/players/:playerId', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching player data.');
+    
+
   }
 });
 
@@ -101,6 +111,8 @@ app.get('/api/players/:playerId/game-log', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching player game log data.');
+    
+
   }
 });
 
@@ -113,6 +125,8 @@ app.get('/api/teams/:teamId/schedule', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching team schedule data.');
+    
+
   }
 });
 
@@ -124,6 +138,8 @@ app.get('/api/milestones/skaters', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching skater milestones data.');
+    
+
   }
 });
 
@@ -135,9 +151,12 @@ app.get('/api/teams', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching teams data.');
+    
+
   }
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  
 });
